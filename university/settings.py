@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'university.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'khush2',
+        'NAME': 'databasename',
         'USER': 'postgres',
         'PASSWORD': '0000',
         'HOST': 'localhost',
@@ -139,7 +139,7 @@ AUTHENTICATION_BACKENDS = [
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'khushdhameliya007@gmail.com'
-EMAIL_HOST_PASSWORD = 'wqct dpck vjex agjf'
+EMAIL_HOST_USER = 'youremail@email.com'
+EMAIL_HOST_PASSWORD = 'your password'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
