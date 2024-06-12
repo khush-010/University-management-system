@@ -1,0 +1,48 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Registration{% endblock title %}
+{% block css %}
+<style>
+    .tb{
+        margin:0.5rem 0.5rem 0.5rem 0.5rem;
+    }
+
+    label{
+        font-size: x-large;
+        font-weight: bold;
+        margin-left: 1rem;
+    }
+
+    legend{
+        margin-left: 1rem;
+        font-weight: bold;
+        font-size: x-large;
+    }
+
+    .rb{
+        margin-left: 1rem;
+        font-weight: lighter;
+    }
+
+</style>
+{% endblock css %}
+{% block content %}
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+    <p style="color: whitesmoke; font-weight: bold; font-size: xx-large; margin-left: 40%;">Registration Form</p>
+</nav>
+
+<form action="" method="post" style="width: 100%; margin: 2rem;" novalidate>
+    {% csrf_token %}
+    {{form.as_p}}
+    <input class="btn btn-info " type="submit" value="Submit" style="margin: 2rem 10%;"></form>
+    {% if messages %}
+    {% for message in messages %}
+    <p{% if message.tags %} class="alert alert-{{ message.tags }} mb-5"{% endif %}>{{ message|safe }}</p>
+    {% endfor %}
+    
+    {% endif %}
+    
+{% endblock content %}
+
+

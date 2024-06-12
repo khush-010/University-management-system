@@ -1,0 +1,50 @@
+{% extends "dashboard/base.html" %}
+{% block title %}Change Password{% endblock title %}
+
+{% block css %}
+<style>
+    .tb{
+        margin:0.5rem 0.5rem 0.5rem 0.5rem;
+    }
+
+    label{
+        font-size: x-large;
+        font-weight: bold;
+        margin-left: 1rem;
+    }
+
+    legend{
+        margin-left: 1rem;
+        font-weight: bold;
+        font-size: x-large;
+    }
+
+    .rb{
+        margin-left: 1rem;
+        font-weight: lighter;
+    }
+
+</style>
+{% endblock css %}
+
+{% block content %}
+
+{% if user.role == 'S'%}
+{% include "dashboard/nav2.html" %}
+{% else %}
+{% include "dashboard/nav3.html" %}
+{% endif %}
+
+<form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class='btn btn-primary' style="margin-left:4rem;">Change Password</button>
+    {% if messages %}
+    {% for message in messages %}
+    <p{% if message.tags %} class="alert alert-{{ message.tags }} mb-5"{% endif %}>{{ message|safe }}</p>
+    {% endfor %}
+    
+    {% endif %}
+</form>
+
+{% endblock content %}

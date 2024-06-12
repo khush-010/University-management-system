@@ -1,0 +1,31 @@
+{% extends "dashboard/base.html" %}
+{% block title %}Application Status{% endblock title %}
+
+{% block content %}
+{% include "dashboard/nav2.html" %}
+<table class="table">
+    <tr>
+        <th scope="col">Sr. No.</th>
+        <th scope="col">Name</th>
+        <th scope="col">University</th>
+        <th scope="col">Program</th>
+        <th scope="col">Study Mode</th>
+        <th scope="col">Application Status</th>
+    </tr>
+    
+        {% for application in applications %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ application.user_name.first_name }} {{ application.user_name.last_name }}</td>
+            <td>{{application.uni_name}}</td>
+            <td>{{application.prog_name}}</td>
+            <td>{{application.study_mode}}</td>
+            <td>{{application.status}}</td>
+        </tr>
+        {% endfor %}
+    
+    
+
+</table>
+
+{% endblock content %}

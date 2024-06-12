@@ -1,0 +1,50 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block title %}Profile{% endblock title %}
+{% block css %}
+<style>
+    /* Custom styles */
+    .profile-card {
+      max-width: 400px;
+      margin: 0 auto;
+      background-color: #f8f9fa;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+    }
+    .profile-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+    .profile-name {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .profile-info {
+      margin-bottom: 20px;
+    }
+    .profile-info p {
+      margin-bottom: 5px;
+    }
+  </style>
+{% endblock css %}
+
+{% block content %}
+{% include "dashboard/nav3.html" %} 
+<div class="container">
+  
+    <div class="profile-card">
+      <img src="{% static 'images/user.jpg' %}" alt="Profile Picture" class="profile-img">
+      <div class="profile-name">{{user.first_name}} {{user.last_name}}</div>
+      <div class="profile-info">
+        <p>Email: {{user.email}}</p>                                                           
+      </div>
+      <button class="btn btn-primary" id="edit-profile-btn">Edit Profile</button>
+    </div>
+  </div>
+{% endblock content %}

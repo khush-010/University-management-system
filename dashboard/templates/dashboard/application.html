@@ -1,0 +1,19 @@
+{% extends "dashboard/base.html" %}
+{% block title %}
+Application
+{% endblock title %}
+
+{% block content %}
+{% include "dashboard/nav2.html" %}
+<form action="" method="post" style="width: 100%; margin: 2rem;">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input class="btn btn-info " type="submit" value="Submit" style="margin: 2rem 10%;">
+</form>
+{% if messages %}
+    {% for message in messages %}
+    <p{% if message.tags %} class="alert alert-{{ message.tags }} mb-5"{% endif %}>{{ message|safe }}</p>
+    {% endfor %}
+{% endif %}
+
+{% endblock content %}

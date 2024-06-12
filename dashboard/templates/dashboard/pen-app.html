@@ -1,0 +1,90 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block title %}
+Pending Applications
+{% endblock title %}
+
+{% block content %}
+{% include "dashboard/nav3.html" %}
+<table class="table">
+    <tr>
+        <th scope="col">Sr. No.</th>
+        <th scope="col">Name</th>
+        <th scope="col">University</th>
+        <th scope="col">Program</th>
+        <th scope="col">Study Mode</th>
+        <th scope="col">Application Status</th>
+    </tr>
+    
+        {% for application in applications %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ application.user_name.first_name }} {{ application.user_name.last_name }}</td>
+            <td>{{application.uni_name}}</td>
+            <td>{{application.prog_name}}</td>
+            <td>{{application.study_mode}}</td>
+            {% if application.status == 'Pending' %}
+                <td><button type="button" data-sid="{{application.id}}" class="btn btn-success btn-accept">Accept</button>
+                    <button type="button" data-sid="{{application.id}}" class="btn btn-danger btn-reject">Reject</button>
+                </td>
+            {% else %}
+                <td>{{application.status}}</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    
+    
+
+</table>
+
+<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+<script>
+    $(document).ready(function(){
+        $("body").on("click",".btn-accept",function(){
+            let id=$(this).attr("data-sid");
+            let csrf_token = $('[name="csrfmiddlewaretoken"]').val();
+            mythis = this;
+            $.ajax({
+                url:"{% url 'accept' %}",
+                method:"POST",
+                data:{
+                    sid : id,
+                    csrfmiddlewaretoken: csrf_token
+                },
+                success: function(data) {
+                    if (data.status == 1) {
+                        $(mythis).closest("td").load("{% static 'dashboard/text.txt' %} #accept", function(response, status, xhr) {
+                            if (status == "error") {
+                                console.error("Error loading text: ", xhr.status, xhr.statusText);
+                            }
+                        });
+                    }
+                }
+            })
+        })
+
+        $("body").on("click",".btn-reject",function(){
+            let id=$(this).attr("data-sid");
+            let csrf_token = $('[name="csrfmiddlewaretoken"]').val();
+            mythis = this;
+            $.ajax({
+                url:"{% url 'reject' %}",
+                method:"POST",
+                data:{
+                    sid : id,
+                    csrfmiddlewaretoken: csrf_token
+                },
+                success: function(data) {
+                    if (data.status == 1) {
+                        $(mythis).closest("td").load("{% static 'dashboard/text.txt' %} #reject", function(response, status, xhr) {
+                            if (status == "error") {
+                                console.error("Error loading text: ", xhr.status, xhr.statusText);
+                            }
+                        });
+                    }
+                }
+            })
+        })
+    })
+</script>
+{% endblock content %}
